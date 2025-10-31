@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:16
+    container_name: klaws-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: klaws
+      POSTGRES_PASSWORD: klaws
+      POSTGRES_DB: klaws
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./.data/postgres:/var/lib/postgresql/data
+
+
