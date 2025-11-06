@@ -37,7 +37,7 @@ app.add_middleware(
 
 @app.get("/")
 def root():
-    return {"message": "Welcome to IF-BLANCAS API"}
+    return {"message": "Welcome to Klaws API"}
 
 if __name__ == "__main__":
     uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True)

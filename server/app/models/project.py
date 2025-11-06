@@ -25,3 +25,14 @@ class ProjectBase(SQLModel):
     map_style: MapStyle = Field(default=MapStyle.dark)
     project_type: ProjectType = Field(default=ProjectType.tourism)
     project_status: ProjectStatus = Field(default=ProjectStatus.not_published)
+
+class ProjectCreate(ProjectBase):
+    pass
+
+class ProjectUpdate(ProjectBase):
+    title: Optional[str]
+    description: Optional[str] = None
+    image_url: Optional[str] = None
+    map_style: Optional[MapStyle] = Field(default=MapStyle.dark)
+    project_type: Optional[ProjectType] = Field(default=ProjectType.tourism)
+    project_status: Optional[ProjectStatus] = Field(default=ProjectStatus.not_published)

@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Optional
 from pydantic import EmailStr
-
+from app.models.token import Token
 from sqlmodel import Enum, Field, SQLModel
 
 class AccountStatus(str, Enum):
@@ -41,5 +41,5 @@ class UserResponse(UserBase):
 class UserHashedPasswordResponse(UserBase):
     hashed_password: str
 
-# class UserCreateResponse(UserResponse):
-    # token: Token
+class UserCreateResponse(UserResponse):
+    token: Token
