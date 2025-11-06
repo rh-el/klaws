@@ -1,11 +1,11 @@
+from datetime import datetime
 from typing import Optional
+from pydantic import EmailStr
+from sqlmodel import Enum, Field, SQLModel
 
-from sqlmodel import Field, SQLModel
-
-
-class Sample(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
+class SampleBase(SQLModel):
+    url: str
     name: str
-    file_url: str
 
-
+class SampleCreate(SampleBase):
+    pass
