@@ -1,10 +1,10 @@
 import { Button, Container, Reshaped } from "reshaped";
-import "reshaped/themes/slate/theme.css";
+import "themes/klawsTheme/theme.css";
 import "./App.css";
 
 function App() {
 	return (
-		<Reshaped theme="slate">
+		<Reshaped theme="klawsTheme">
 			<Container width="652px">
 				<Button href="/">Get started</Button>
 			</Container>

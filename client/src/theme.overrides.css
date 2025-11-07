@@ -1,8 +1,0 @@
-:root {
-	/* Primary sans-serif family for body/text */
-	--rs-typography-font-sans: "Duru Sans", ui-sans-serif, system-ui, -apple-system,
-		"Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-	/* Monospace family */
-	--rs-typography-font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo,
-		Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-}

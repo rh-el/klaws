@@ -1,10 +1,10 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import "reshaped/themes/slate/theme.css";
-import "./theme.overrides.css";
+import "./themes/klawsTheme/theme.css";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import Login from "./pages/Login";
+import { Reshaped } from "reshaped";
 
 const router = createBrowserRouter([
 	{
@@ -35,6 +35,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
-		<RouterProvider router={router} />
+		<Reshaped theme="klawsTheme">
+			<RouterProvider router={router} />
+		</Reshaped>
 	</StrictMode>
 );
