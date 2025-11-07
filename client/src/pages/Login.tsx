@@ -1,23 +1,35 @@
-import { Button, Container, Reshaped, Text } from "reshaped";
-import "./login.css";
+import { Button, Card, Text, View, TextField, FormControl, Link } from "reshaped";
 
 export default function Login() {
 	return (
-		<Reshaped theme="klawsTheme">
-			<Text className="" variant="title-1">
-				Klaws
-			</Text>
-			<Text className="" variant="body-1">
-				Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe veritatis pariatur fuga dolorem iste
-				inventore modi nemo culpa, harum beatae ratione aperiam? Fuga ratione, exercitationem molestias illum
-				vitae nostrum beatae!
-			</Text>
-			<Container width="652px">
-				<Button className="text-purple-100" href="/">
-					Get started
-				</Button>
-			</Container>
-			<div className="bg-neutral-faded rounded-small p-x4 l:p-x6">Tailwind + Reshaped tokens</div>
-		</Reshaped>
+		<View width="100%" height="100vh" align="center" justify="center">
+			<View width="429px" height="100%" align="center" justify="center" direction="column" gap={10}>
+				<Text variant="title-1">Klaws</Text>
+				<Card padding={4} className="w-full">
+					<View
+						width="100%"
+						gap={4}
+						direction="column"
+						justify="center"
+						// align="center"
+						backgroundColor="elevation-base"
+					>
+						<FormControl>
+							<FormControl.Label>email</FormControl.Label>
+							<TextField name="email" />
+						</FormControl>
+						<FormControl>
+							<FormControl.Label>password</FormControl.Label>
+							<TextField name="password" inputAttributes={{ type: "password" }} />
+						</FormControl>
+						<Button>log in</Button>
+						<Button>sign up</Button>
+						<View width="100%" direction="row" justify="center">
+							<Link onClick={() => {}}>forgot password?</Link>
+						</View>
+					</View>
+				</Card>
+			</View>
+		</View>
 	);
 }

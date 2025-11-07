@@ -3,14 +3,18 @@
 @import "tailwindcss";
 @import "reshaped/themes/reshaped/tailwind.css";
 
-@theme {
-	--font-sans: "Duru Sans", ui-sans-serif, system-ui, -apple-system,
-		"Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-	--font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Monaco,
-		Consolas, "Liberation Mono", "Courier New", monospace;
+::-moz-selection {
+	color: var(--rs-color-on-background-primary);
+	background: var(--rs-color-background-primary);
+}
+
+::selection {
+	color: var(--rs-color-on-background-primary);
+	background: var(--rs-color-background-primary);
 }
 
 /* 
+
 :root {
 	font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
 	line-height: 1.5;

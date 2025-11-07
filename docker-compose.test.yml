@@ -1,0 +1,66 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: klaws-db-test
+    restart: no
+    environment:
+      POSTGRES_USER: klaws_test
+      POSTGRES_PASSWORD: klaws_test_password
+      POSTGRES_DB: klaws_test
+    ports:
+      - '5433:5432'  # Different port to avoid conflicts
+    tmpfs:
+      - /var/lib/postgresql/data  # Use tmpfs for faster test database
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U klaws_test -d klaws_test"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    networks:
+      - klaws-test-network
+
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: klaws-backend-test
+    restart: no
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
+    environment:
+      - DATABASE_URL=postgresql://klaws_test:klaws_test_password@db:5432/klaws_test
+      - ENVIRONMENT=test
+      - TESTING=true
+    ports:
+      - '8001:8000'  # Different port for testing
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - klaws-test-network
+
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+      target: development
+    container_name: klaws-frontend-test
+    restart: no
+    environment:
+      - VITE_API_URL=http://localhost:8001
+      - NODE_ENV=test
+    ports:
+      - '5174:5173'  # Different port for testing
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    networks:
+      - klaws-test-network
+
+networks:
+  klaws-test-network:
+    driver: bridge
+

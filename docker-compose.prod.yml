@@ -1,0 +1,82 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: klaws-db-prod
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-klaws_prod}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change_this_in_production}
+      POSTGRES_DB: ${POSTGRES_DB:-klaws_prod}
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_prod_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-klaws_prod} -d ${POSTGRES_DB:-klaws_prod}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - klaws-network
+
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: klaws-backend-prod
+    restart: always
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-klaws_prod}:${POSTGRES_PASSWORD:-change_this_in_production}@db:5432/${POSTGRES_DB:-klaws_prod}
+      - ENVIRONMENT=production
+    ports:
+      - '8000:8000'
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - klaws-network
+    # Limit resources in production
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+      target: production
+    container_name: klaws-frontend-prod
+    restart: always
+    environment:
+      - NODE_ENV=production
+    ports:
+      - '80:80'
+    depends_on:
+      - backend
+    networks:
+      - klaws-network
+    # Limit resources in production
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+
+volumes:
+  postgres_prod_data:
+    driver: local
+
+networks:
+  klaws-network:
+    driver: bridge
+

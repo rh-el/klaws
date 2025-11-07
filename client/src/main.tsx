@@ -2,6 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import "./themes/klawsTheme/theme.css";
+import "./themes/klawsTheme/tailwind.css";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import Login from "./pages/Login";
 import { Reshaped } from "reshaped";
@@ -35,7 +36,7 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
-		<Reshaped theme="klawsTheme">
+		<Reshaped defaultColorMode="dark" theme="klawsTheme">
 			<RouterProvider router={router} />
 		</Reshaped>
 	</StrictMode>

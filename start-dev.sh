@@ -1,0 +1,29 @@
+#!/bin/bash
+# Start development environment
+
+echo "🚀 Starting KLAWS development environment..."
+echo ""
+
+# Check if Docker is running
+if ! docker info > /dev/null 2>&1; then
+    echo "❌ Error: Docker is not running. Please start Docker and try again."
+    exit 1
+fi
+
+# Build and start services
+docker-compose -f docker-compose.dev.yml up -d --build
+
+echo ""
+echo "✅ Services started successfully!"
+echo ""
+echo "📍 Service URLs:"
+echo "   Frontend:  http://localhost:5173"
+echo "   Backend:   http://localhost:8000"
+echo "   Database:  localhost:5432"
+echo ""
+echo "📋 Useful commands:"
+echo "   View logs:        docker-compose -f docker-compose.dev.yml logs -f"
+echo "   Stop services:    docker-compose -f docker-compose.dev.yml down"
+echo "   Restart service:  docker-compose -f docker-compose.dev.yml restart [service-name]"
+echo ""
+

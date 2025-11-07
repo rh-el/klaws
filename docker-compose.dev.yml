@@ -1,0 +1,71 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: klaws-db-dev
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: klaws_dev
+      POSTGRES_PASSWORD: klaws_dev_password
+      POSTGRES_DB: klaws_dev
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_dev_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U klaws_dev -d klaws_dev"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - klaws-network
+
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: klaws-backend-dev
+    restart: unless-stopped
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    environment:
+      - DATABASE_URL=postgresql://klaws_dev:klaws_dev_password@db:5432/klaws_dev
+      - ENVIRONMENT=development
+    ports:
+      - '8000:8000'
+    volumes:
+      - ./server:/app
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - klaws-network
+
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+      target: development
+    container_name: klaws-frontend-dev
+    restart: unless-stopped
+    environment:
+      - VITE_API_URL=http://localhost:8000
+      - NODE_ENV=development
+    ports:
+      - '5173:5173'
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    networks:
+      - klaws-network
+
+volumes:
+  postgres_dev_data:
+    driver: local
+
+networks:
+  klaws-network:
+    driver: bridge
+
