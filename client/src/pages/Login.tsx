@@ -6,14 +6,7 @@ export default function Login() {
 			<View width="429px" height="100%" align="center" justify="center" direction="column" gap={10}>
 				<Text variant="title-1">Klaws</Text>
 				<Card padding={4} className="w-full">
-					<View
-						width="100%"
-						gap={4}
-						direction="column"
-						justify="center"
-						// align="center"
-						backgroundColor="elevation-base"
-					>
+					<View width="100%" gap={4} direction="column" justify="center" backgroundColor="elevation-base">
 						<FormControl>
 							<FormControl.Label>email</FormControl.Label>
 							<TextField name="email" />

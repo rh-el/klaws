@@ -24,6 +24,8 @@ class GroupBase(SQLModel):
     delay_enabled: bool = False
     delay_gain: int
     delay_type: EffectType = Field(default=EffectType.first)
+    class Config:
+            arbitrary_types_allowed=True
 
 class GroupCreate(GroupBase):
     pass

@@ -25,6 +25,8 @@ class ProjectBase(SQLModel):
     map_style: MapStyle = Field(default=MapStyle.dark)
     project_type: ProjectType = Field(default=ProjectType.tourism)
     project_status: ProjectStatus = Field(default=ProjectStatus.not_published)
+    class Config:
+        arbitrary_types_allowed=True
 
 class ProjectCreate(ProjectBase):
     pass

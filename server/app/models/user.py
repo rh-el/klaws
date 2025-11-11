@@ -15,6 +15,8 @@ class UserBase(SQLModel):
     bio: Optional[str]
     avatar_url: Optional[str]
     account_status: AccountStatus = Field(default=AccountStatus.base)
+    class Config:
+        arbitrary_types_allowed=True
 
 class UserCreate(UserBase):
     plain_password: str
