@@ -34,11 +34,12 @@ class UserUpdate(SQLModel):
     hashed_password: Optional[str] = None
     updated_at: Optional[datetime] = Field(default=None, sa_column_kwargs={"onupdate": datetime.now})
 
-class UserResponse(UserBase):
-    id: int
-    created_at: datetime
+class UserResponse(SQLModel):
+    email: str
+    nickname: str
+    account_status: AccountStatus = Field(default=AccountStatus.base)
     class Config:
-        from_attributes = True
+        arbitrary_types_allowed=True
 
 class UserHashedPasswordResponse(UserBase):
     hashed_password: str

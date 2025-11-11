@@ -31,6 +31,9 @@ services:
         environment:
             - DATABASE_URL=postgresql://klaws_dev:klaws_dev_password@db:5432/klaws_dev
             - ENVIRONMENT=development
+            - JWT_SECRET_KEY=D69_OY9UYy9DLJF2xi10iIj-1cCvBiQb0fSjd-kyy_g
+            - JWT_ALGORITHM=HS256
+            - JWT_ACCESS_TOKEN_EXPIRE_DAYS=2
         ports:
             - "8000:8000"
         volumes:
