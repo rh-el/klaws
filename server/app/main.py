@@ -1,6 +1,9 @@
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from sqlmodel import SQLModel
+
+from app.core.middlewares import global_exception_handler
+from app.routes import user
 from .db import create_db_and_tables, engine, get_session
 from contextlib import asynccontextmanager
 from app.core.config import settings
@@ -18,7 +21,7 @@ app = FastAPI(
     description=settings.PROJECT_DESCRIPTION,
     version=settings.PROJECT_VERSION,
     openapi_url=f"{settings.API_V1_STR}/openapi.json",
-    # lifespan=lifespan
+    lifespan=lifespan
 )
 
 app.add_middleware(
@@ -40,6 +43,9 @@ app.add_middleware(
 # def on_startup() -> None:
 #     # Create tables if they don't exist yet (MVP convenience)
 #     SQLModel.metadata.create_all(engine)
+
+app.add_exception_handler(Exception, global_exception_handler)
+app.include_router(user.router, prefix=settings.API_V1_STR)
 
 @app.get("/")
 def root():

@@ -2,12 +2,12 @@ from datetime import datetime
 from typing import Optional
 from pydantic import EmailStr
 from app.models.token import Token
-from sqlmodel import Enum, Field, SQLModel
+from sqlmodel import Field, SQLModel
+from enum import Enum
 
 class AccountStatus(str, Enum):
     premium = "premium"
     base = "base"
-
 
 class UserBase(SQLModel):
     email: EmailStr = Field(unique=True, index=True)

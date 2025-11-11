@@ -1,7 +1,9 @@
 from datetime import datetime
 from typing import Optional
 from pydantic import EmailStr
-from sqlmodel import Enum, Field, SQLModel
+from sqlmodel import Field, SQLModel
+from enum import Enum
+
 
 class GroupColor(str, Enum):
     white = "white"

@@ -1,7 +1,6 @@
-from datetime import datetime
-from typing import Optional
-from pydantic import EmailStr
-from sqlmodel import Enum, Field, SQLModel
+
+from sqlmodel import SQLModel
+
 
 class SampleBase(SQLModel):
     url: str

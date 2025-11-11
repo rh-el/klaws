@@ -14,3 +14,17 @@ def get_user_by_email(email: str, session: Session) -> Optional[UserResponse]:
         nickname=db_user.nickname,
         account_status=db_user.account_status
     )
+
+def create_user(user: UserCreateHashed, session: Session):
+    new_user = User(
+        email=user.email,
+        nickname=user.nickname,
+        bio=user.bio,
+        avatar_url=user.avatar_url,
+        account_status=user.account_status,
+        hashed_password=user.hashed_password
+    )
+    session.add(new_user)
+    session.commit()
+    session.refresh(new_user)
+    return new_user

@@ -1,7 +1,9 @@
 from datetime import datetime
 from typing import Dict, Optional
 from pydantic import EmailStr
-from sqlmodel import JSON, Column, Enum, Field, SQLModel
+from sqlmodel import JSON, Column, Field, SQLModel
+from enum import Enum
+
 
 class PlaybackMode(str, Enum):
     standard = "standard"
