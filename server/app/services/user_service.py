@@ -3,7 +3,7 @@ import os
 from dotenv import load_dotenv
 from fastapi.security import OAuth2PasswordBearer
 from app.core.exceptions import UserAlreadyExistsException
-from app.crud.user_crud import create_user, get_user_by_email
+from app.crud.user_crud import create_user, get_user_by_email, get_user_hashed_password
 import jwt
 from sqlmodel import Session
 from app.db import get_session
@@ -15,15 +15,16 @@ from app.models.token import TokenData
 
 load_dotenv()
 
-
-
-JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")  # Changed from HASH_SECRET_KEY
+JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
 JWT_ALGORITHM = os.getenv("JWT_ALGORITHM")
 ACCESS_TOKEN_EXPIRE_DAYS = 2
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 oauth2_scheme_no_error = OAuth2PasswordBearer(tokenUrl="token", auto_error=False)
+
+def verify_password(plain_password, hashed_password):
+    return pwd_context.verify(plain_password, hashed_password)
 
 def get_password_hash(plain_password):
     return pwd_context.hash(plain_password)
@@ -38,7 +39,13 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
     encoded_jwt = jwt.encode(to_encode, JWT_SECRET_KEY, algorithm=JWT_ALGORITHM)
     return encoded_jwt
 
-
+def authenticate_user(email: str, password: str, session: Session):
+    user = get_user_hashed_password(email, session)
+    if not user:
+        return False
+    if not verify_password(password, user.hashed_password):
+        return False
+    return user
 
 def create_user_service(user: UserCreate, session: Session):
     db_user = get_user_by_email(user.email, session)

@@ -41,7 +41,8 @@ class UserResponse(SQLModel):
     class Config:
         arbitrary_types_allowed=True
 
-class UserHashedPasswordResponse(UserBase):
+class UserHashedPasswordResponse(SQLModel):
+    email: str
     hashed_password: str
 
 class UserCreateResponse(UserResponse):

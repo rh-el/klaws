@@ -9,8 +9,6 @@ from contextlib import asynccontextmanager
 from app.core.config import settings
 import uvicorn
 
-
-
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     create_db_and_tables()

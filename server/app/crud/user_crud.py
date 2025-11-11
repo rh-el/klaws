@@ -28,3 +28,13 @@ def create_user(user: UserCreateHashed, session: Session):
     session.commit()
     session.refresh(new_user)
     return new_user
+
+def get_user_hashed_password(email: str, session: Session):
+    query = select(User).where(User.email == email)
+    db_user = session.exec(query).first()
+    if not db_user:
+        return None
+    return UserHashedPasswordResponse(
+        email=db_user.email,
+        hashed_password=db_user.hashed_password
+    )
