@@ -7,4 +7,4 @@ Monorepo:
 
 ### Démarrage rapide
 
-./sart-dev.sh
+./start-dev.sh
