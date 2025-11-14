@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
     db:
-        image: postgres:16-alpine
+        image: postgres:18
         container_name: klaws-db-prod
         restart: always
         environment:
@@ -12,7 +12,7 @@ services:
         ports:
             - "5432:5432"
         volumes:
-            - postgres_prod_data:/var/lib/postgresql/data
+            - postgres_dev_data:/var/lib/postgresql
         healthcheck:
             test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-klaws_prod} -d ${POSTGRES_DB:-klaws_prod}"]
             interval: 10s

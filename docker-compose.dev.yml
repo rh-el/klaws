@@ -1,6 +1,6 @@
 services:
     db:
-        image: postgres:16-alpine
+        image: postgres:18
         container_name: klaws-db-dev
         restart: unless-stopped
         environment:
@@ -10,7 +10,7 @@ services:
         ports:
             - "5432:5432"
         volumes:
-            - postgres_dev_data:/var/lib/postgresql/data
+            - postgres_dev_data:/var/lib/postgresql
         healthcheck:
             test: ["CMD-SHELL", "pg_isready -U klaws_dev -d klaws_dev"]
             interval: 10s

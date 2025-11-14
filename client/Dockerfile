@@ -1,7 +1,7 @@
 # Multi-stage Dockerfile for KLAWS Frontend
 
 # Stage 1: Build stage
-FROM node:22-alpine AS builder
+FROM node:25 AS builder
 
 WORKDIR /app
 
@@ -18,7 +18,7 @@ COPY . .
 RUN npm run build
 
 # Stage 2: Development stage
-FROM node:22-alpine AS development
+FROM node:25 AS development
 
 WORKDIR /app
 

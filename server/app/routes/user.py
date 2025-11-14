@@ -2,7 +2,8 @@ from datetime import timedelta
 import os
 from dotenv import load_dotenv
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlmodel import Session
+from app.models import User
+from sqlmodel import Session, select
 from typing import Annotated
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from app.db import get_session
@@ -44,3 +45,8 @@ def login_for_access_token(form_data: Annotated[OAuth2PasswordRequestForm, Depen
         data={"sub": user.email}, expires_delta=access_token_expires
     )
     return Token(access_token=access_token, token_type="bearer")
+
+@router.get("/")
+def get_all_users(session: Session = Depends(get_session)):
+    print(session.exec(select(User)).all())
+    return session.exec(select(User)).all()

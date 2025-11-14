@@ -15,7 +15,7 @@ export default function Login() {
 							<FormControl.Label>password</FormControl.Label>
 							<TextField name="password" inputAttributes={{ type: "password" }} />
 						</FormControl>
-						<Button>log in</Button>
+						<Button onClick={() => {}}>log in</Button>
 						<Button>sign up</Button>
 						<View width="100%" direction="row" justify="center">
 							<Link onClick={() => {}}>forgot password?</Link>
