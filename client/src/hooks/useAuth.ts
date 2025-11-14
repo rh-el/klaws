@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Cookies from "js-cookie";
 
 interface LoginCredentials {
 	email: string;
@@ -6,13 +7,8 @@ interface LoginCredentials {
 }
 
 interface AuthResponse {
-	email: string;
-	nickname: string;
-	account_status: string;
-	token: {
-		access_token: string;
-		token_type: string;
-	};
+	access_token: string;
+	token_type: string;
 }
 
 export function useAuth() {
@@ -29,7 +25,6 @@ export function useAuth() {
 			body.append("password", password);
 			const response = await fetch("http://localhost:8000/api/v1/user/login", {
 				method: "POST",
-				// headers: { "Content-Type": "application/json" },
 				headers: { "Content-Type": "application/x-www-form-urlencoded" },
 				body,
 			});
@@ -40,8 +35,7 @@ export function useAuth() {
 			}
 
 			const data: AuthResponse = await response.json();
-			// set token in cookies
-			console.log(data);
+			Cookies.set("token", data.access_token);
 			return data;
 		} catch (e: any) {
 			setError(e instanceof Error ? e.message : "An error occurred");

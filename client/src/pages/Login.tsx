@@ -2,9 +2,6 @@ import { useState } from "react";
 import { Button, Card, Text, View, TextField, FormControl, Link } from "reshaped";
 import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
-import { useForm, Controller } from "react-hook-form";
-import type { SubmitHandler } from "react-hook-form";
-import { FormTextField } from "../components/FormTextField";
 
 interface FormInputLogin {
 	email: string;
@@ -33,10 +30,8 @@ export default function Login() {
 		if (!form.email) submitErrors.email = "Email is required";
 		if (!form.password) submitErrors.password = "Password is required";
 		setErrors(submitErrors);
-
 		if (Object.keys(submitErrors).length > 0) return;
 
-		console.log("Submit payload:", form);
 		login({ email: form.email, password: form.password });
 	};
 
@@ -80,7 +75,9 @@ export default function Login() {
 								)}
 							</FormControl>
 
-							<Button type="submit">Log in</Button>
+							<Button type="submit" disabled={isLoading}>
+								Log in
+							</Button>
 							<Button>Sign up</Button>
 
 							<View direction="row" justify="center">
