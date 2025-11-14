@@ -33,6 +33,7 @@ def create_user(user: UserCreate, session: Session = Depends(get_session)):
 
 @router.post("/login", response_model=Token)
 def login_for_access_token(form_data: Annotated[OAuth2PasswordRequestForm, Depends()], session: Session = Depends(get_session)):
+    print(form_data)
     user = authenticate_user(form_data.username, form_data.password, session)
     if not user:
         raise HTTPException(
