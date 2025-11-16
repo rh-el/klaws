@@ -1,10 +1,6 @@
 import { useState } from "react";
 import Cookies from "js-cookie";
-
-interface LoginCredentials {
-	email: string;
-	password: string;
-}
+import type { LoginTypes, SignupTypes } from "../types";
 
 interface AuthResponse {
 	access_token: string;
@@ -15,7 +11,7 @@ export function useAuth() {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [error, setError] = useState<string | null>(null);
 
-	const login = async ({ email, password }: LoginCredentials) => {
+	const login = async ({ email, password }: LoginTypes) => {
 		setIsLoading(true);
 		setError(null);
 
@@ -38,12 +34,49 @@ export function useAuth() {
 			Cookies.set("token", data.access_token);
 			return data;
 		} catch (e: any) {
-			setError(e instanceof Error ? e.message : "An error occurred");
+			setError(e instanceof Error ? e.message : "An error occurred while logging in");
 			throw e;
 		} finally {
 			setIsLoading(false);
 		}
 	};
 
-	return { login, isLoading, error };
+	const signup = async ({ email, nickname, bio, avatar_url, plain_password }: SignupTypes) => {
+		setIsLoading(true);
+		setError(null);
+
+		try {
+			const body = JSON.stringify({
+				email,
+				nickname,
+				bio,
+				avatar_url,
+				plain_password,
+			});
+			const response = await fetch("http://localhost:8000/api/v1/user/signup", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body,
+			});
+
+			if (!response.ok) {
+				const errorData = await response.json();
+				throw new Error(errorData.error || "Signup failed");
+			}
+
+			const data: AuthResponse = await response.json();
+			Cookies.set("token", data.access_token);
+			console.log(data);
+			return data;
+		} catch (e: any) {
+			setError(e instanceof Error ? e.message : "An error occurred while signing up");
+			throw e;
+		} finally {
+			setIsLoading(false);
+		}
+	};
+
+	return { login, signup, isLoading, error };
 }

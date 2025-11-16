@@ -6,11 +6,16 @@ import "./themes/klawsTheme/tailwind.css";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import Login from "./pages/Login";
 import { Reshaped } from "reshaped";
+import Signup from "./pages/Signup";
 
 const router = createBrowserRouter([
 	{
 		path: "/login",
 		Component: Login,
+	},
+	{
+		path: "/signup",
+		Component: Signup,
 	},
 	// {
 	// 	path: "/basket",

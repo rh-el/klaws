@@ -2,18 +2,14 @@ import { useState } from "react";
 import { Button, Card, Text, View, TextField, FormControl, Link } from "reshaped";
 import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
-
-interface FormInputLogin {
-	email: string;
-	password: string;
-}
+import type { LoginTypes } from "../types";
 
 export default function Login() {
-	const [form, setForm] = useState<FormInputLogin>({
+	const [form, setForm] = useState<LoginTypes>({
 		email: "",
 		password: "",
 	});
-	const [errors, setErrors] = useState<Partial<FormInputLogin>>({});
+	const [errors, setErrors] = useState<Partial<LoginTypes>>({});
 	const { login, isLoading, error: authError } = useAuth();
 	const navigate = useNavigate();
 
@@ -24,7 +20,7 @@ export default function Login() {
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		const emailCheckRegex = /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gm;
-		const submitErrors: Partial<FormInputLogin> = {};
+		const submitErrors: Partial<LoginTypes> = {};
 		if (!emailCheckRegex.exec(form.email)) {
 			submitErrors.email = "invalid email format";
 		}
@@ -37,7 +33,6 @@ export default function Login() {
 		}
 		login({ email: form.email, password: form.password });
 	};
-	console.log(errors);
 
 	return (
 		<View width="100%" height="100vh" align="center" justify="center">
@@ -86,13 +81,13 @@ export default function Login() {
 							)}
 
 							<Button type="submit" disabled={isLoading}>
-								Log in
+								log in
 							</Button>
-							<Button>Sign up</Button>
+							<Button onClick={() => navigate("/signup")}>sign up</Button>
 
 							<View direction="row" justify="center">
 								<Link onClick={() => console.log("forgot password clicked")}>
-									Forgot password?
+									forgot password?
 								</Link>
 							</View>
 						</View>
