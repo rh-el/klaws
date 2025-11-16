@@ -17,7 +17,7 @@ import type { SignupTypes } from "../types";
 export default function Signup() {
 	const [form, setForm] = useState<SignupTypes>({
 		email: "",
-		nickname: "",
+		username: "",
 		bio: "",
 		avatar_url: "",
 		plain_password: "",
@@ -40,8 +40,8 @@ export default function Signup() {
 		if (form.plain_password.length < 2) {
 			submitErrors.plain_password = "password should be longer than 2 characters";
 		}
-		if (form.nickname.length < 3) {
-			submitErrors.nickname = "nickname should be longer than 3 characters";
+		if (form.username.length < 3) {
+			submitErrors.username = "username should be longer than 3 characters";
 		}
 		setErrors(submitErrors);
 		if (Object.keys(submitErrors).length > 0) {
@@ -50,7 +50,7 @@ export default function Signup() {
 		// handle avatar upload before signing in to get its url
 		signup({
 			email: form.email,
-			nickname: form.nickname,
+			username: form.username,
 			bio: form.bio,
 			plain_password: form.plain_password,
 		});
@@ -104,17 +104,17 @@ export default function Signup() {
 								</FormControl>
 
 								<FormControl
-									hasError={Boolean(errors.nickname) || Boolean(authError)}
+									hasError={Boolean(errors.username) || Boolean(authError)}
 								>
-									<FormControl.Label>nickname *</FormControl.Label>
+									<FormControl.Label>username *</FormControl.Label>
 									<TextField
-										name="nickname"
-										value={form.nickname}
+										name="username"
+										value={form.username}
 										onChange={handleChange}
 										inputAttributes={{ type: "text", required: true }}
 									/>
-									{errors.nickname && (
-										<FormControl.Error>{errors.nickname}</FormControl.Error>
+									{errors.username && (
+										<FormControl.Error>{errors.username}</FormControl.Error>
 									)}
 								</FormControl>
 
@@ -132,14 +132,16 @@ export default function Signup() {
 									drop your best profile picture
 								</FileUpload>
 
-								<Button type="submit" disabled={isLoading}>
+								<Button color="primary" type="submit" disabled={isLoading}>
 									sign up
 								</Button>
-								<Button>already have an account?</Button>
+								<Button onClick={() => navigate("/login")}>
+									already have an account?
+								</Button>
 
 								<View direction="row" justify="center">
 									<Link onClick={() => console.log("forgot password clicked")}>
-										Forgot password?
+										forgot password?
 									</Link>
 								</View>
 							</View>

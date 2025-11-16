@@ -11,14 +11,14 @@ def get_user_by_email(email: str, session: Session) -> Optional[UserResponse]:
         return None
     return UserResponse(
         email=db_user.email,
-        nickname=db_user.nickname,
+        username=db_user.username,
         account_status=db_user.account_status
     )
 
 def create_user(user: UserCreateHashed, session: Session):
     new_user = User(
         email=user.email,
-        nickname=user.nickname,
+        username=user.username,
         bio=user.bio,
         avatar_url=user.avatar_url,
         account_status=user.account_status,

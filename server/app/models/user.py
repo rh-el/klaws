@@ -11,7 +11,7 @@ class AccountStatus(str, Enum):
 
 class UserBase(SQLModel):
     email: EmailStr = Field(unique=True, index=True)
-    nickname: str
+    username: str
     bio: Optional[str] = None
     avatar_url: Optional[str] = None
     account_status: AccountStatus = Field(default=AccountStatus.base)
@@ -30,13 +30,13 @@ class UserLogin(SQLModel):
 
 class UserUpdate(SQLModel):
     email: Optional[str] = Field(default=None, unique=True, index=True)
-    nickname: Optional[str] = None
+    username: Optional[str] = None
     hashed_password: Optional[str] = None
     updated_at: Optional[datetime] = Field(default=None, sa_column_kwargs={"onupdate": datetime.now})
 
 class UserResponse(SQLModel):
     email: str
-    nickname: str
+    username: str
     account_status: AccountStatus = Field(default=AccountStatus.base)
     class Config:
         arbitrary_types_allowed=True

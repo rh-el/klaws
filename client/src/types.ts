@@ -5,7 +5,7 @@ export interface LoginTypes {
 
 export interface SignupTypes {
 	email: string;
-	nickname: string;
+	username: string;
 	bio?: string;
 	avatar_url?: string;
 	plain_password: string;

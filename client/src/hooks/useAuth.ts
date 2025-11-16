@@ -41,14 +41,14 @@ export function useAuth() {
 		}
 	};
 
-	const signup = async ({ email, nickname, bio, avatar_url, plain_password }: SignupTypes) => {
+	const signup = async ({ email, username, bio, avatar_url, plain_password }: SignupTypes) => {
 		setIsLoading(true);
 		setError(null);
 
 		try {
 			const body = JSON.stringify({
 				email,
-				nickname,
+				username,
 				bio,
 				avatar_url,
 				plain_password,

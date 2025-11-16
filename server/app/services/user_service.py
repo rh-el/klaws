@@ -56,7 +56,7 @@ def create_user_service(user: UserCreate, session: Session):
     hashed_pasword = get_password_hash(user.plain_password)
     new_user = UserCreateHashed(
         email=user.email,
-        nickname=user.nickname,
+        username=user.username,
         bio=user.bio,
         avatar_url=user.avatar_url,
         account_status=user.account_status,

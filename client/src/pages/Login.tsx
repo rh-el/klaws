@@ -80,7 +80,7 @@ export default function Login() {
 								</Text>
 							)}
 
-							<Button type="submit" disabled={isLoading}>
+							<Button color="primary" type="submit" disabled={isLoading}>
 								log in
 							</Button>
 							<Button onClick={() => navigate("/signup")}>sign up</Button>

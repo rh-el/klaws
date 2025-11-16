@@ -26,7 +26,7 @@ def create_user(user: UserCreate, session: Session = Depends(get_session)):
     access_token = create_access_token(data={"sub": user.email}, expires_delta=access_token_expires)
     return UserCreateResponse(
         email=new_user.email,
-        nickname=new_user.nickname,
+        username=new_user.username,
         account_status=new_user.account_status,
         token=Token(access_token=access_token, token_type="bearer")
     )
@@ -62,7 +62,7 @@ def create_user(user: UserCreate, session: Session = Depends(get_session)):
     )
     return UserCreateResponse(
         email=new_user.email,
-        nickname=user.nickname,
+        username=user.username,
         account_status=user.account_status,
         token=Token(access_token=access_token, token_type="bearer")
     )
