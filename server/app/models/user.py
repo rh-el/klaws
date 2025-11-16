@@ -12,8 +12,8 @@ class AccountStatus(str, Enum):
 class UserBase(SQLModel):
     email: EmailStr = Field(unique=True, index=True)
     nickname: str
-    bio: Optional[str]
-    avatar_url: Optional[str]
+    bio: Optional[str] = None
+    avatar_url: Optional[str] = None
     account_status: AccountStatus = Field(default=AccountStatus.base)
     class Config:
         arbitrary_types_allowed=True

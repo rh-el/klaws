@@ -51,3 +51,18 @@ def login_for_access_token(form_data: Annotated[OAuth2PasswordRequestForm, Depen
 def get_all_users(session: Session = Depends(get_session)):
     print(session.exec(select(User)).all())
     return session.exec(select(User)).all()
+
+
+@router.post("/signup", response_model=UserCreateResponse, status_code=201)
+def create_user(user: UserCreate, session: Session = Depends(get_session)):
+    new_user = create_user_service(session, user)
+    access_token_expires = timedelta(days=ACCESS_TOKEN_EXPIRE_DAYS)
+    access_token = create_access_token(
+        data={"sub": user.email}, expires_delta=access_token_expires
+    )
+    return UserCreateResponse(
+        email=new_user.email,
+        nickname=user.nickname,
+        account_status=user.account_status,
+        token=Token(access_token=access_token, token_type="bearer")
+    )
