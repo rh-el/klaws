@@ -21,7 +21,7 @@ export function useAuth() {
 
 		try {
 			const body = new URLSearchParams();
-			body.append("username", email); // <-- field name must be 'username'
+			body.append("username", email);
 			body.append("password", password);
 			const response = await fetch("http://localhost:8000/api/v1/user/login", {
 				method: "POST",

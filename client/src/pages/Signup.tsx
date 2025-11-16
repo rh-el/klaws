@@ -3,41 +3,37 @@ import { Button, Card, Text, View, TextField, FormControl, Link } from "reshaped
 import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
-interface FormInputLogin {
+interface FormInputSignup {
 	email: string;
 	password: string;
 }
 
-export default function Login() {
-	const [form, setForm] = useState<FormInputLogin>({
+export default function Signup() {
+	const [form, setForm] = useState<FormInputSignup>({
 		email: "",
 		password: "",
 	});
-	const [errors, setErrors] = useState<Partial<FormInputLogin>>({});
+	const [errors, setErrors] = useState<Partial<FormInputSignup>>({});
+
 	const { login, isLoading, error: authError } = useAuth();
 	const navigate = useNavigate();
 
 	const handleChange = ({ name, value }: { name: string; value: string }) => {
 		setForm((prev) => ({ ...prev, [name]: value }));
+		setErrors((prev) => ({ ...prev, [name]: undefined })); // clear field error when typing
 	};
 
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		const emailCheckRegex = /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gm;
-		const submitErrors: Partial<FormInputLogin> = {};
-		if (!emailCheckRegex.exec(form.email)) {
-			submitErrors.email = "invalid email format";
-		}
-		if (form.password.length < 2) {
-			submitErrors.password = "password should be longer than 2 chars";
-		}
+
+		const submitErrors: Partial<FormInputSignup> = {};
+		if (!form.email) submitErrors.email = "Email is required";
+		if (!form.password) submitErrors.password = "Password is required";
 		setErrors(submitErrors);
-		if (Object.keys(submitErrors).length > 0) {
-			return;
-		}
+		if (Object.keys(submitErrors).length > 0) return;
+
 		login({ email: form.email, password: form.password });
 	};
-	console.log(errors);
 
 	return (
 		<View width="100%" height="100vh" align="center" justify="center">
@@ -53,7 +49,7 @@ export default function Login() {
 				<Card className="w-full" padding={4}>
 					<form style={{ width: "100%" }} onSubmit={handleSubmit}>
 						<View width="100%" gap={4} direction="column">
-							<FormControl hasError={Boolean(errors.email) || Boolean(authError)}>
+							<FormControl>
 								<FormControl.Label>email</FormControl.Label>
 								<TextField
 									name="email"
@@ -66,7 +62,7 @@ export default function Login() {
 								)}
 							</FormControl>
 
-							<FormControl hasError={Boolean(errors.password) || Boolean(authError)}>
+							<FormControl>
 								<FormControl.Label>password</FormControl.Label>
 								<TextField
 									name="password"
@@ -74,16 +70,10 @@ export default function Login() {
 									onChange={handleChange}
 									inputAttributes={{ type: "password", required: true }}
 								/>
-
 								{errors.password && (
 									<FormControl.Error>{errors.password}</FormControl.Error>
 								)}
 							</FormControl>
-							{authError && (
-								<Text variant="caption-1" color="critical">
-									invalid credentials
-								</Text>
-							)}
 
 							<Button type="submit" disabled={isLoading}>
 								Log in
