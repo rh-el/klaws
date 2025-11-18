@@ -4,7 +4,6 @@ from typing import Iterator
 from dotenv import load_dotenv
 from sqlmodel import SQLModel, Session, create_engine
 
-
 load_dotenv()
 
 DATABASE_URL = os.getenv(
