@@ -14,3 +14,4 @@ passlib==1.7.4
 pydantic==2.12.4
 pydantic_core==2.41.5
 bcrypt==4.3.0
+cloudinary==1.44.0

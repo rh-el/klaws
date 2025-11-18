@@ -1,18 +1,9 @@
 import { useState } from "react";
-import {
-	Button,
-	Card,
-	Text,
-	View,
-	TextField,
-	FormControl,
-	Link,
-	TextArea,
-	FileUpload,
-} from "reshaped";
+import { Button, Card, Text, View, TextField, FormControl, Link, TextArea } from "reshaped";
 import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import type { SignupTypes } from "../types";
+import ImageUpload from "../components/ImageUpload";
 
 export default function Signup() {
 	const [form, setForm] = useState<SignupTypes>({
@@ -53,6 +44,7 @@ export default function Signup() {
 			username: form.username,
 			bio: form.bio,
 			plain_password: form.plain_password,
+			avatar_url: form.avatar_url,
 		});
 		// navigate()
 	};
@@ -128,9 +120,7 @@ export default function Signup() {
 									/>
 								</FormControl>
 
-								<FileUpload name="file" onChange={console.log}>
-									drop your best profile picture
-								</FileUpload>
+								<ImageUpload handleChange={handleChange} />
 
 								<Button color="primary" type="submit" disabled={isLoading}>
 									sign up

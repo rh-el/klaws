@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlmodel import SQLModel
 
 from app.core.middlewares import global_exception_handler
-from app.routes import user
+from app.routes import image, user
 from .db import create_db_and_tables, engine, get_session
 from contextlib import asynccontextmanager
 from app.core.config import settings
@@ -44,6 +44,7 @@ app.add_middleware(
 
 app.add_exception_handler(Exception, global_exception_handler)
 app.include_router(user.router, prefix=settings.API_V1_STR)
+app.include_router(image.router, prefix=settings.API_V1_STR)
 
 @app.get("/")
 def root():

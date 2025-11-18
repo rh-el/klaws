@@ -22,6 +22,7 @@ oauth2_schema = OAuth2PasswordBearer(tokenUrl="token")
 @router.post("/signup", response_model=UserCreateResponse, status_code=201)
 def create_user(user: UserCreate, session: Session = Depends(get_session)):
     new_user = create_user_service(user, session)
+    print(new_user)
     access_token_expires = timedelta(days=ACCESS_TOKEN_EXPIRE_DAYS)
     access_token = create_access_token(data={"sub": user.email}, expires_delta=access_token_expires)
     return UserCreateResponse(
@@ -52,17 +53,3 @@ def get_all_users(session: Session = Depends(get_session)):
     print(session.exec(select(User)).all())
     return session.exec(select(User)).all()
 
-
-@router.post("/signup", response_model=UserCreateResponse, status_code=201)
-def create_user(user: UserCreate, session: Session = Depends(get_session)):
-    new_user = create_user_service(session, user)
-    access_token_expires = timedelta(days=ACCESS_TOKEN_EXPIRE_DAYS)
-    access_token = create_access_token(
-        data={"sub": user.email}, expires_delta=access_token_expires
-    )
-    return UserCreateResponse(
-        email=new_user.email,
-        username=user.username,
-        account_status=user.account_status,
-        token=Token(access_token=access_token, token_type="bearer")
-    )
