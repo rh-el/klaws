@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 import Login from "./pages/Login";
 import { Reshaped } from "reshaped";
 import Signup from "./pages/Signup";
+import Works from "./pages/Works";
 
 const router = createBrowserRouter([
 	{
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
 	{
 		path: "/signup",
 		Component: Signup,
+	},
+	{
+		path: "/works",
+		Component: Works,
 	},
 	// {
 	// 	path: "/basket",

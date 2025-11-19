@@ -46,7 +46,7 @@ export default function Signup() {
 			plain_password: form.plain_password,
 			avatar_url: form.avatar_url,
 		});
-		// navigate()
+		navigate("/works");
 	};
 
 	return (

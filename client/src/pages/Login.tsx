@@ -32,6 +32,7 @@ export default function Login() {
 			return;
 		}
 		login({ email: form.email, password: form.password });
+		navigate("/works");
 	};
 
 	return (
