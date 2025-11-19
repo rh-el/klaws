@@ -170,9 +170,9 @@
 		
 			[data-rs-theme~="klawsTheme"][data-rs-color-mode="dark"] {
 					--rs-color-background-primary: #693FFF;
---rs-color-background-primary-faded: #33693FFF;
+--rs-color-background-primary-faded: #693FFF33;
 --rs-color-border-primary: #DFD6FF;
---rs-color-border-primary-faded: #66DFD6FF;
+--rs-color-border-primary-faded: #DFD6FF66;
 --rs-color-foreground-primary: #C3B3FF;
 --rs-color-background-critical: #d02626;
 --rs-color-background-critical-faded: #3e1f1f;
@@ -205,7 +205,7 @@
 --rs-color-background-page: #0D0D0D;
 --rs-color-background-page-faded: #121212;
 --rs-color-rgb-background-primary: 105.009, 63.01049999999999, 255;
---rs-color-rgb-background-primary-faded: 51, 105.009, 63.01049999999999;
+--rs-color-rgb-background-primary-faded: 105.009, 63.01049999999999, 255;
 --rs-color-rgb-background-critical: 208.0035, 37.995, 37.995;
 --rs-color-rgb-background-critical-faded: 61.990500000000004, 31.008, 31.008;
 --rs-color-rgb-background-warning: 241.00050000000002, 196.98749999999998, 18.003;

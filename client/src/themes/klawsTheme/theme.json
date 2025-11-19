@@ -217,7 +217,7 @@
     },
     "backgroundPrimaryFaded": {
       "hex": "#EFEBFF",
-      "hexDark": "#33693FFF"
+      "hexDark": "#693FFF33"
     },
     "borderPrimary": {
       "hex": "#0D003D",
@@ -225,7 +225,7 @@
     },
     "borderPrimaryFaded": {
       "hex": "#1A0D003D",
-      "hexDark": "#66DFD6FF"
+      "hexDark": "#DFD6FF66"
     },
     "foregroundPrimary": {
       "hex": "#4F1FFF",
@@ -371,7 +371,7 @@
     },
     "rgbBackgroundPrimaryFaded": {
       "hex": "239.0115, 235.00799999999998, 255",
-      "hexDark": "51, 105.009, 63.01049999999999"
+      "hexDark": "105.009, 63.01049999999999, 255"
     },
     "onBackgroundCritical": {
       "oklch": {
