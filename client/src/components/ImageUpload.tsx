@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FileUpload, Text, Alert } from "reshaped";
+import { FileUpload, Text, Alert, Image, Avatar, View } from "reshaped";
 
 const handleFileUpload = async (file: File) => {
 	if (!file) {
@@ -75,12 +75,20 @@ export default function ImageUpload({
 			{" "}
 			{!uploadStatus.data && !uploadStatus.loading && (
 				<FileUpload name="file" onChange={handleFileChange}>
-					Drop files to attach, or browse
+					drop files to attach, or browse
 				</FileUpload>
 			)}
 			{uploadStatus.loading && <Text>Uploading...</Text>}
 			{uploadStatus.success && uploadStatus.data && (
-				<Alert color="positive">Upload successful!</Alert>
+				<View direction="column" gap={1} align="center">
+					<Avatar
+						className="w-16"
+						size={16}
+						src={uploadStatus.data.secure_url}
+						attributes={{ "aria-label": "an avatar image slot" }}
+					/>
+					<Text color="positive">upload successful!</Text>
+				</View>
 			)}
 			{uploadStatus.error && <Alert color="critical">Error: {uploadStatus.error}</Alert>}
 		</>
