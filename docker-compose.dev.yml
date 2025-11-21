@@ -1,8 +1,9 @@
 services:
     db:
-        image: postgres:18
+        image: postgis/postgis:18-3.6
         container_name: klaws-db-dev
         restart: unless-stopped
+        platform: linux/x86_64
         environment:
             POSTGRES_USER: klaws_dev
             POSTGRES_PASSWORD: klaws_dev_password
@@ -11,6 +12,7 @@ services:
             - "5432:5432"
         volumes:
             - postgres_dev_data:/var/lib/postgresql
+            - ./server/init-db:/docker-entrypoint-initdb.d
         healthcheck:
             test: ["CMD-SHELL", "pg_isready -U klaws_dev -d klaws_dev"]
             interval: 10s
