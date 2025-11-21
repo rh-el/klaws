@@ -2,9 +2,9 @@
 
 Monorepo:
 
--   `client/`: React + Vite + TypeScript (React Compiler activé)
+-   `client/`: React + Vite + TypeScript (React Compiler enabled)
 -   `server/`: FastAPI + SQLModel
 
-### Démarrage rapide
+### Quick start
 
 ./start-dev.sh
