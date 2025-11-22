@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FileUpload, Text, Alert, Image, Avatar, View } from "reshaped";
+import { FileUpload, Text, Alert, Avatar, View } from "reshaped";
 
 const handleFileUpload = async (file: File) => {
 	if (!file) {
@@ -10,10 +10,13 @@ const handleFileUpload = async (file: File) => {
 	formData.append("file", file);
 
 	try {
-		const response = await fetch("http://localhost:8000/api/v1/images/upload_image", {
-			method: "POST",
-			body: formData,
-		});
+		const response = await fetch(
+			"http://localhost:8000/api/v1/images/upload_image",
+			{
+				method: "POST",
+				body: formData,
+			}
+		);
 
 		if (!response.ok) {
 			const errorData = await response.json();
@@ -22,7 +25,6 @@ const handleFileUpload = async (file: File) => {
 
 		const data = await response.json();
 		console.log("Upload successful:", data);
-		// data contains: { secure_url: string, public_id: string }
 		return data;
 	} catch (error) {
 		console.error("Upload error:", error);
@@ -30,7 +32,6 @@ const handleFileUpload = async (file: File) => {
 	}
 };
 
-// Usage in component
 export default function ImageUpload({
 	handleChange,
 }: {
@@ -48,8 +49,19 @@ export default function ImageUpload({
 		data: null,
 	});
 
-	const handleFileChange = async ({ name, value }: { name: string; value: File[] }) => {
-		setUploadStatus({ loading: true, success: false, error: null, data: null });
+	const handleFileChange = async ({
+		name,
+		value,
+	}: {
+		name: string;
+		value: File[];
+	}) => {
+		setUploadStatus({
+			loading: true,
+			success: false,
+			error: null,
+			data: null,
+		});
 
 		try {
 			const result = await handleFileUpload(value[0]);
@@ -90,7 +102,9 @@ export default function ImageUpload({
 					<Text color="positive">upload successful!</Text>
 				</View>
 			)}
-			{uploadStatus.error && <Alert color="critical">Error: {uploadStatus.error}</Alert>}
+			{uploadStatus.error && (
+				<Alert color="critical">Error: {uploadStatus.error}</Alert>
+			)}
 		</>
 	);
 }

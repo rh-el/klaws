@@ -19,11 +19,16 @@ export function useAuth() {
 			const body = new URLSearchParams();
 			body.append("username", email);
 			body.append("password", password);
-			const response = await fetch("http://localhost:8000/api/v1/user/login", {
-				method: "POST",
-				headers: { "Content-Type": "application/x-www-form-urlencoded" },
-				body,
-			});
+			const response = await fetch(
+				"http://localhost:8000/api/v1/user/login",
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/x-www-form-urlencoded",
+					},
+					body,
+				}
+			);
 
 			if (!response.ok) {
 				const errorData = await response.json();
@@ -33,15 +38,25 @@ export function useAuth() {
 			const data: AuthResponse = await response.json();
 			Cookies.set("token", data.access_token);
 			return data;
-		} catch (e: any) {
-			setError(e instanceof Error ? e.message : "An error occurred while logging in");
+		} catch (e: unknown) {
+			setError(
+				e instanceof Error
+					? e.message
+					: "An error occurred while logging in"
+			);
 			throw e;
 		} finally {
 			setIsLoading(false);
 		}
 	};
 
-	const signup = async ({ email, username, bio, avatar_url, plain_password }: SignupTypes) => {
+	const signup = async ({
+		email,
+		username,
+		bio,
+		avatar_url,
+		plain_password,
+	}: SignupTypes) => {
 		setIsLoading(true);
 		setError(null);
 
@@ -53,13 +68,16 @@ export function useAuth() {
 				avatar_url,
 				plain_password,
 			});
-			const response = await fetch("http://localhost:8000/api/v1/user/signup", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body,
-			});
+			const response = await fetch(
+				"http://localhost:8000/api/v1/user/signup",
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body,
+				}
+			);
 
 			if (!response.ok) {
 				const errorData = await response.json();
@@ -68,10 +86,13 @@ export function useAuth() {
 
 			const data: AuthResponse = await response.json();
 			Cookies.set("token", data.access_token);
-			console.log(data);
 			return data;
-		} catch (e: any) {
-			setError(e instanceof Error ? e.message : "An error occurred while signing up");
+		} catch (e: unknown) {
+			setError(
+				e instanceof Error
+					? e.message
+					: "An error occurred while signing up"
+			);
 			throw e;
 		} finally {
 			setIsLoading(false);

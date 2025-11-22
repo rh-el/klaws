@@ -1,5 +1,13 @@
 import { useState } from "react";
-import { Button, Card, Text, View, TextField, FormControl, Link } from "reshaped";
+import {
+	Button,
+	Card,
+	Text,
+	View,
+	TextField,
+	FormControl,
+	Link,
+} from "reshaped";
 import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import type { LoginTypes } from "../types";
@@ -17,9 +25,10 @@ export default function Login() {
 		setForm((prev) => ({ ...prev, [name]: value }));
 	};
 
-	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		const emailCheckRegex = /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gm;
+		const emailCheckRegex =
+			/^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gm;
 		const submitErrors: Partial<LoginTypes> = {};
 		if (!emailCheckRegex.exec(form.email)) {
 			submitErrors.email = "invalid email format";
@@ -31,8 +40,13 @@ export default function Login() {
 		if (Object.keys(submitErrors).length > 0) {
 			return;
 		}
-		login({ email: form.email, password: form.password });
-		navigate("/works");
+		const authResponse = await login({
+			email: form.email,
+			password: form.password,
+		});
+		if (authResponse.access_token) {
+			navigate("/works");
+		}
 	};
 
 	return (
@@ -49,30 +63,49 @@ export default function Login() {
 				<Card className="w-full" padding={4}>
 					<form style={{ width: "100%" }} onSubmit={handleSubmit}>
 						<View width="100%" gap={4} direction="column">
-							<FormControl hasError={Boolean(errors.email) || Boolean(authError)}>
+							<FormControl
+								hasError={
+									Boolean(errors.email) || Boolean(authError)
+								}
+							>
 								<FormControl.Label>email</FormControl.Label>
 								<TextField
 									name="email"
 									value={form.email}
 									onChange={handleChange}
-									inputAttributes={{ type: "email", required: true }}
+									inputAttributes={{
+										type: "email",
+										required: true,
+									}}
 								/>
 								{errors.email && (
-									<FormControl.Error>{errors.email}</FormControl.Error>
+									<FormControl.Error>
+										{errors.email}
+									</FormControl.Error>
 								)}
 							</FormControl>
 
-							<FormControl hasError={Boolean(errors.password) || Boolean(authError)}>
+							<FormControl
+								hasError={
+									Boolean(errors.password) ||
+									Boolean(authError)
+								}
+							>
 								<FormControl.Label>password</FormControl.Label>
 								<TextField
 									name="password"
 									value={form.password}
 									onChange={handleChange}
-									inputAttributes={{ type: "password", required: true }}
+									inputAttributes={{
+										type: "password",
+										required: true,
+									}}
 								/>
 
 								{errors.password && (
-									<FormControl.Error>{errors.password}</FormControl.Error>
+									<FormControl.Error>
+										{errors.password}
+									</FormControl.Error>
 								)}
 							</FormControl>
 							{authError && (
@@ -81,13 +114,23 @@ export default function Login() {
 								</Text>
 							)}
 
-							<Button color="primary" type="submit" disabled={isLoading}>
+							<Button
+								color="primary"
+								type="submit"
+								disabled={isLoading}
+							>
 								log in
 							</Button>
-							<Button onClick={() => navigate("/signup")}>sign up</Button>
+							<Button onClick={() => navigate("/signup")}>
+								sign up
+							</Button>
 
 							<View direction="row" justify="center">
-								<Link onClick={() => console.log("forgot password clicked")}>
+								<Link
+									onClick={() =>
+										console.log("forgot password clicked")
+									}
+								>
 									forgot password?
 								</Link>
 							</View>
