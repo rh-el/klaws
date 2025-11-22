@@ -1,7 +1,12 @@
+import { Container } from "reshaped";
 import Header from "../components/Header";
 
 export default function Works() {
-	return <Header />;
+	return (
+		<Container width="1280px">
+			<Header />
+		</Container>
+	);
 }
 
 {

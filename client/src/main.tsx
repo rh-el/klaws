@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import { Reshaped } from "reshaped";
 import Signup from "./pages/Signup";
 import Works from "./pages/Works";
+import App from "./App";
 
 const router = createBrowserRouter([
 	{
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
 	{
 		path: "/works",
 		Component: Works,
+	},
+	{
+		path: "/",
+		Component: App,
 	},
 	// {
 	// 	path: "/basket",
