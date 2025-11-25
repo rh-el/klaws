@@ -10,13 +10,10 @@ const handleFileUpload = async (file: File) => {
 	formData.append("file", file);
 
 	try {
-		const response = await fetch(
-			"http://localhost:8000/api/v1/images/upload_image",
-			{
-				method: "POST",
-				body: formData,
-			}
-		);
+		const response = await fetch("http://localhost:8000/api/v1/images/upload_image", {
+			method: "POST",
+			body: formData,
+		});
 
 		if (!response.ok) {
 			const errorData = await response.json();
@@ -49,13 +46,7 @@ export default function ImageUpload({
 		data: null,
 	});
 
-	const handleFileChange = async ({
-		name,
-		value,
-	}: {
-		name: string;
-		value: File[];
-	}) => {
+	const handleFileChange = async ({ name, value }: { name: string; value: File[] }) => {
 		setUploadStatus({
 			loading: true,
 			success: false,
@@ -102,9 +93,7 @@ export default function ImageUpload({
 					<Text color="positive">upload successful!</Text>
 				</View>
 			)}
-			{uploadStatus.error && (
-				<Alert color="critical">Error: {uploadStatus.error}</Alert>
-			)}
+			{uploadStatus.error && <Alert color="critical">Error: {uploadStatus.error}</Alert>}
 		</>
 	);
 }

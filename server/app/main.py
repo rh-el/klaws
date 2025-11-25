@@ -20,7 +20,7 @@ app = FastAPI(
     version=settings.PROJECT_VERSION,
     openapi_url=f"{settings.API_V1_STR}/openapi.json",
     lifespan=lifespan
-)
+)   
 
 app.add_middleware(
     CORSMiddleware,

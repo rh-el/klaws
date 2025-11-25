@@ -1,11 +1,22 @@
-import { Container } from "reshaped";
+import { Container, Divider, View } from "reshaped";
 import Header from "../components/Header";
+import WorksContentSection from "../components/WorksContentSection";
+import Footer from "../components/Footer";
 
 export default function Works() {
 	return (
-		<Container width="1280px">
-			<Header />
-		</Container>
+		<>
+			<Container width="1280px">
+				<Header />
+			</Container>
+			<Divider />
+			<Container width="1280px">
+				<View direction="column" gap={6} paddingTop={6} paddingBottom={6}>
+					<WorksContentSection />
+					{/* <Footer /> */}
+				</View>
+			</Container>
+		</>
 	);
 }
 
