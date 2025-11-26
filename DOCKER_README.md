@@ -5,18 +5,19 @@ This document describes the Docker setup for the KLAWS application with three di
 ## Architecture
 
 The application consists of three containers:
-- **Frontend**: React + Vite application (Node.js)
-- **Backend**: FastAPI application (Python)
-- **Database**: PostgreSQL database
+
+-   **Frontend**: React + Vite application (Node.js)
+-   **Backend**: FastAPI application (Python)
+-   **Database**: PostgreSQL database
 
 ## Prerequisites
 
-- Docker Engine 20.10+
-- Docker Compose 2.0+
-- Docker images pulled from Docker Hub:
-  - `python:3.12-slim`
-  - `node:22-alpine`
-  - `postgres:16-alpine`
+-   Docker Engine 20.10+
+-   Docker Compose 2.0+
+-   Docker images pulled from Docker Hub:
+    -   `python:3.12-slim`
+    -   `node:22-alpine`
+    -   `postgres:16-alpine`
 
 ## Project Structure
 
@@ -55,14 +56,16 @@ docker-compose -f docker-compose.dev.yml down
 ```
 
 **Services:**
-- Frontend: http://localhost:5173
-- Backend: http://localhost:8000
-- Database: localhost:5432
+
+-   Frontend: http://localhost:5173
+-   Backend: http://localhost:8000
+-   Database: localhost:5432
 
 **Features:**
-- Hot-reload enabled for both frontend and backend
-- Source code mounted as volumes
-- Development dependencies included
+
+-   Hot-reload enabled for both frontend and backend
+-   Source code mounted as volumes
+-   Development dependencies included
 
 ### Production Environment
 
@@ -84,16 +87,18 @@ docker-compose -f docker-compose.prod.yml down
 ```
 
 **Services:**
-- Frontend: http://localhost:80 (Nginx)
-- Backend: http://localhost:8000
-- Database: localhost:5432
+
+-   Frontend: http://localhost:80 (Nginx)
+-   Backend: http://localhost:8000
+-   Database: localhost:5432
 
 **Features:**
-- Optimized production builds
-- Nginx serving static files with caching
-- Resource limits configured
-- No source code volumes
-- Health checks enabled
+
+-   Optimized production builds
+-   Nginx serving static files with caching
+-   Resource limits configured
+-   No source code volumes
+-   Health checks enabled
 
 ### Test Environment
 
@@ -112,15 +117,17 @@ docker-compose -f docker-compose.test.yml down -v
 ```
 
 **Services:**
-- Frontend: http://localhost:5174
-- Backend: http://localhost:8001
-- Database: localhost:5433
+
+-   Frontend: http://localhost:5174
+-   Backend: http://localhost:8001
+-   Database: localhost:5433
 
 **Features:**
-- Isolated test database using tmpfs (faster)
-- Different ports to avoid conflicts
-- No restart policies
-- Can run alongside dev environment
+
+-   Isolated test database using tmpfs (faster)
+-   Different ports to avoid conflicts
+-   No restart policies
+-   Can run alongside dev environment
 
 ## Common Commands
 
@@ -208,47 +215,55 @@ The frontend Dockerfile uses multi-stage builds:
 ## Networking
 
 Each environment has its own Docker network:
-- Development: `klaws-network`
-- Production: `klaws-network`
-- Test: `klaws-test-network`
+
+-   Development: `klaws-network`
+-   Production: `klaws-network`
+-   Test: `klaws-test-network`
 
 Services communicate using service names (e.g., `http://backend:8000`, `postgresql://db:5432`)
 
 ## Volumes
 
 ### Development
-- Source code mounted for hot-reload
-- Named volume for PostgreSQL: `postgres_dev_data`
+
+-   Source code mounted for hot-reload
+-   Named volume for PostgreSQL: `postgres_dev_data`
 
 ### Production
-- No source code mounts
-- Named volume for PostgreSQL: `postgres_prod_data`
+
+-   No source code mounts
+-   Named volume for PostgreSQL: `postgres_prod_data`
 
 ### Test
-- Source code mounted (frontend only)
-- tmpfs for PostgreSQL (ephemeral, faster)
+
+-   Source code mounted (frontend only)
+-   tmpfs for PostgreSQL (ephemeral, faster)
 
 ## Security Considerations
 
 ### Development
-- Uses simple passwords (not for production!)
-- All ports exposed for debugging
+
+-   Uses simple passwords (not for production!)
+-   All ports exposed for debugging
 
 ### Production
-- **IMPORTANT**: Update `.env.prod` with secure passwords
-- Consider using Docker secrets for sensitive data
-- Resource limits configured
-- Non-root user in backend container
-- Security headers in Nginx
+
+-   **IMPORTANT**: Update `.env.prod` with secure passwords
+-   Consider using Docker secrets for sensitive data
+-   Resource limits configured
+-   Non-root user in backend container
+-   Security headers in Nginx
 
 ### Environment Variables
-- Never commit `.env.prod` to version control
-- Use strong passwords for production databases
-- Rotate credentials regularly
+
+-   Never commit `.env.prod` to version control
+-   Use strong passwords for production databases
+-   Rotate credentials regularly
 
 ## Troubleshooting
 
 ### Container won't start
+
 ```bash
 # Check logs
 docker-compose -f docker-compose.dev.yml logs [service-name]
@@ -261,6 +276,7 @@ docker-compose -f docker-compose.dev.yml up -d --build [service-name]
 ```
 
 ### Database connection errors
+
 ```bash
 # Check if database is ready
 docker-compose -f docker-compose.dev.yml exec db pg_isready
@@ -273,6 +289,7 @@ docker-compose -f docker-compose.dev.yml exec backend env | grep DATABASE_URL
 ```
 
 ### Port conflicts
+
 ```bash
 # Check what's using the port
 lsof -i :5173  # or :8000, :5432
@@ -281,9 +298,10 @@ lsof -i :5173  # or :8000, :5432
 ```
 
 ### Clear everything and start fresh
+
 ```bash
 # Stop all containers
-docker-compose -f docker-compose.dev.yml down -v
+docker-compose -f docker-compose.dev.yml down
 
 # Remove unused images
 docker image prune -a
@@ -295,15 +313,17 @@ docker-compose -f docker-compose.dev.yml up -d --build
 ## Performance Optimization
 
 ### Development
-- Use `.dockerignore` to exclude unnecessary files
-- Mount only necessary directories
-- Use named volumes for `node_modules`
+
+-   Use `.dockerignore` to exclude unnecessary files
+-   Mount only necessary directories
+-   Use named volumes for `node_modules`
 
 ### Production
-- Multi-stage builds minimize image size
-- Nginx caching for static assets
-- Gzip compression enabled
-- Resource limits prevent resource exhaustion
+
+-   Multi-stage builds minimize image size
+-   Nginx caching for static assets
+-   Gzip compression enabled
+-   Resource limits prevent resource exhaustion
 
 ## Next Steps
 
@@ -316,8 +336,7 @@ docker-compose -f docker-compose.dev.yml up -d --build
 
 ## Additional Resources
 
-- [Docker Documentation](https://docs.docker.com/)
-- [Docker Compose Documentation](https://docs.docker.com/compose/)
-- [FastAPI Deployment](https://fastapi.tiangolo.com/deployment/)
-- [Vite Production Build](https://vitejs.dev/guide/build.html)
-
+-   [Docker Documentation](https://docs.docker.com/)
+-   [Docker Compose Documentation](https://docs.docker.com/compose/)
+-   [FastAPI Deployment](https://fastapi.tiangolo.com/deployment/)
+-   [Vite Production Build](https://vitejs.dev/guide/build.html)

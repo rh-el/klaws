@@ -11,7 +11,7 @@ if ! docker info > /dev/null 2>&1; then
 fi
 
 # Build and start services
-docker-compose -f docker-compose.dev.yml up -d --build
+docker-compose -f docker-compose.dev.yml --env-file .env.dev up -d --build
 
 echo ""
 echo "✅ Services started successfully!"

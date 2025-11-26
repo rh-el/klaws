@@ -1,7 +1,6 @@
 import { Container, Divider, View } from "reshaped";
 import Header from "../components/Header";
 import WorksContentSection from "../components/WorksContentSection";
-import Footer from "../components/Footer";
 
 export default function Works() {
 	return (

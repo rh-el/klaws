@@ -1,10 +1,9 @@
-version: "3.9"
-
 services:
     db:
         image: postgis/postgis:18-3.6
         container_name: klaws-db-prod
         restart: always
+        platform: linux/x86_64
         environment:
             POSTGRES_USER: ${POSTGRES_USER:-klaws_prod}
             POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change_this_in_production}
@@ -12,7 +11,7 @@ services:
         ports:
             - "5432:5432"
         volumes:
-            - postgres_dev_data:/var/lib/postgresql
+            - postgres_prod_data:/var/lib/postgresql
             - ./server/init-db:/docker-entrypoint-initdb.d
         healthcheck:
             test:

@@ -1,4 +1,4 @@
-import { Grid, View } from "reshaped";
+import { Grid } from "reshaped";
 import CardComponent from "./CardComponent";
 
 export default function CardContainer() {

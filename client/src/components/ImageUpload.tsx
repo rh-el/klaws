@@ -46,7 +46,7 @@ export default function ImageUpload({
 		data: null,
 	});
 
-	const handleFileChange = async ({ name, value }: { name: string; value: File[] }) => {
+	const handleFileChange = async ({ value }: { value: File[] }) => {
 		setUploadStatus({
 			loading: true,
 			success: false,

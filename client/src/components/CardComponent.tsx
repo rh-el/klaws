@@ -33,9 +33,6 @@ export default function CardComponent() {
 					</View>
 				</View>
 			</Card>
-
-			{feather.replace()}
-
 			<Badge color="positive" variant="faded" size="small" className="absolute top-3 right-3">
 				online
 			</Badge>
