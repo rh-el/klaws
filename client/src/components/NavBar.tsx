@@ -1,13 +1,13 @@
-import { createRef, useEffect, useRef, useState, type RefObject } from "react";
-import { useLocation } from "react-router-dom";
-import { Actionable, View } from "reshaped";
-import "./NavBar.css";
+import { useEffect, useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Actionable, Tabs, View } from "reshaped";
 
 export default function NavBar() {
+	const navigate = useNavigate();
 	const location = useLocation();
-	const containerRef = useRef<HTMLDivElement | null>(null);
-	const worksRef = useRef<HTMLDivElement | null>(null);
-	const accountRef = useRef<HTMLDivElement | null>(null);
+	const containerRef = useRef<HTMLDivElement>(null);
+	const worksRef = useRef<HTMLDivElement>(null);
+	const accountRef = useRef<HTMLDivElement>(null);
 	const [selectorStyle, setSelectorStyle] = useState({
 		left: 0,
 		width: 0,
@@ -16,31 +16,30 @@ export default function NavBar() {
 
 	useEffect(() => {
 		const currentPath = location.pathname;
-		let activeRef: RefObject<HTMLDivElement | null> = createRef();
+		let activeRef: React.RefObject<HTMLDivElement> | null = null;
 
 		if (currentPath === "/works") {
 			activeRef = worksRef;
 		} else if (currentPath === "/account") {
 			activeRef = accountRef;
 		}
+		if (currentPath === "/works") {
+			activeRef = worksRef;
+		} else if (currentPath === "/account") {
+			activeRef = accountRef;
+		}
 
-		if (activeRef?.current && containerRef?.current) {
-			const containerRect = containerRef.current.getBoundingClientRect();
-			const elRect = activeRef.current.getBoundingClientRect();
-
+		if (activeRef?.current) {
+			const el = activeRef.current;
 			setSelectorStyle({
-				left:
-					activeRef === worksRef
-						? elRect.left - containerRect.left
-						: elRect.left - containerRect.left + 8,
-				width: elRect.width,
+				left: el.offsetLeft,
+				width: el.clientWidth,
 				opacity: 1,
 			});
 		}
 	}, [location.pathname]);
-
 	return (
-		<div className="relative" ref={containerRef}>
+		<div style={{ position: "relative" }} ref={containerRef}>
 			<View direction="row" gap={4}>
 				<div ref={worksRef}>
 					<Actionable href="/works">worKs</Actionable>
@@ -50,15 +49,30 @@ export default function NavBar() {
 				</div>
 			</View>
 
+			{/* Underline selector */}
 			<div
-				className="nav-underline-selector"
 				style={{
-					transform: `translateX(${selectorStyle.left}px)`,
-					// left: `${selectorStyle.left}px`,
-					width: `${selectorStyle.width}px`,
+					position: "absolute",
+					bottom: 0,
+					left: 0,
+					height: "2px",
+					backgroundColor: "var(--rs-color-border-accent-default, #000)",
+					transform: `translateX(${selectorStyle.left}px) scaleX(${selectorStyle.width})`,
+					transformOrigin: "left",
 					opacity: selectorStyle.opacity,
+					transition: "transform 200ms ease, opacity 200ms ease",
+					pointerEvents: "none",
 				}}
-			></div>
+			/>
 		</div>
+
+		// <ul className="flex gap-4">
+		//   <li>
+		//     <a href="/works">worKs</a>
+		//   </li>
+		//   <li>
+		//     <a href="/account">aKount</a>
+		//   </li>
+		// </ul>
 	);
 }
