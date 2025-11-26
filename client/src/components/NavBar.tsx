@@ -23,6 +23,11 @@ export default function NavBar() {
 		} else if (currentPath === "/account") {
 			activeRef = accountRef;
 		}
+		if (currentPath === "/works") {
+			activeRef = worksRef;
+		} else if (currentPath === "/account") {
+			activeRef = accountRef;
+		}
 
 		if (activeRef?.current) {
 			const el = activeRef.current;

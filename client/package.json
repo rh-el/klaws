@@ -27,7 +27,7 @@
 		"react-dom": "^19.1.1",
 		"react-hook-form": "^7.66.0",
 		"react-router-dom": "^7.9.5",
-		"reshaped": "^3.9.0-canary.12",
+		"reshaped": "^3.9.0-canary.11",
 		"tailwindcss": "^4.1.17",
 		"zustand": "^5.0.8"
 	},

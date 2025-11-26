@@ -1,0 +1,9 @@
+.nav-underline-selector {
+	position: absolute;
+	bottom: -5px;
+	height: 2px;
+	background-color: var(--rs-color-border-primary);
+	transform-origin: left;
+	transition: transform 200ms ease, opacity 200ms ease;
+	pointer-events: none;
+}
