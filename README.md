@@ -38,29 +38,29 @@ Both applications (client and server) are running:
 
 **Create a virtual environment**
 
-```python
+```
 cd server
 python3 -m venv .venv
 source .venv/bin/activate
 ```
 **Install dependencies**
-```python
+```
 python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 **Start server**
-```python
+```
 uvicorn app.main:app --reload
 ```
 
 
 ### Client
 **Install dependencies**
-```python
+```
 cd client
 npm i
 ```
 **Start client**
-```python
+```
 npm run dev
 ```
