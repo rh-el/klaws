@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { Actionable, Tabs, View } from "reshaped";
+import { useLocation } from "react-router-dom";
+import { Actionable, View } from "reshaped";
 
 export default function NavBar() {
-	const navigate = useNavigate();
 	const location = useLocation();
 	const containerRef = useRef<HTMLDivElement>(null);
 	const worksRef = useRef<HTMLDivElement>(null);
@@ -16,24 +15,17 @@ export default function NavBar() {
 
 	useEffect(() => {
 		const currentPath = location.pathname;
-		let activeRef: React.RefObject<HTMLDivElement> | null = null;
+		const activeEl =
+			currentPath === "/works"
+				? worksRef.current
+				: currentPath === "/account"
+					? accountRef.current
+					: null;
 
-		if (currentPath === "/works") {
-			activeRef = worksRef;
-		} else if (currentPath === "/account") {
-			activeRef = accountRef;
-		}
-		if (currentPath === "/works") {
-			activeRef = worksRef;
-		} else if (currentPath === "/account") {
-			activeRef = accountRef;
-		}
-
-		if (activeRef?.current) {
-			const el = activeRef.current;
+		if (activeEl) {
 			setSelectorStyle({
-				left: el.offsetLeft,
-				width: el.clientWidth,
+				left: activeEl.offsetLeft,
+				width: activeEl.clientWidth,
 				opacity: 1,
 			});
 		}
