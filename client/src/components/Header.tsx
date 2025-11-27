@@ -1,30 +1,43 @@
-import { Avatar, View } from "reshaped";
-import NavBar from "./NavBar";
+import { Avatar, Container, Divider, Tabs, View } from "reshaped";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Header() {
+	const navigate = useNavigate();
+	const location = useLocation();
+	const activeTab = location.pathname.startsWith("/works") ? "1" : "2";
+	// const [tabValue, setTabValue] = useState<string>("1");
+
+	const handleNavigation = (value: string) => {
+		if (value === "1") navigate("/works");
+		if (value === "2") navigate("/account");
+	};
+
 	return (
 		<nav role="navigation">
-			<View
-				paddingTop={4}
-				paddingBottom={4}
-				direction="row"
-				align="center"
-				justify={"space-between"}
-				gap={6}
-				width="100%"
-			>
-				<Avatar src="" initials="K" color="primary" variant="faded" size={12} />
-				<NavBar />
+			<Container width="1280px">
+				<View
+					paddingTop={4}
+					paddingBottom={4}
+					direction="row"
+					align="center"
+					justify="space-between"
+				>
+					<Avatar src="" initials="K" color="primary" variant="faded" size={12} />
 
-				{/* <View direction="row" justify="end" grow>
-					<Tabs variant="borderless" defaultValue="1">
+					<Tabs
+						onChange={({ value }) => handleNavigation(value)}
+						variant="borderless"
+						value={activeTab}
+					>
 						<Tabs.List>
 							<Tabs.Item value="1">worKs</Tabs.Item>
+
 							<Tabs.Item value="2">aKount</Tabs.Item>
 						</Tabs.List>
 					</Tabs>
-				</View>*/}
-			</View>
+				</View>
+			</Container>
+			<Divider />
 		</nav>
 	);
 }
