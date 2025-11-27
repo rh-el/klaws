@@ -1,7 +1,6 @@
 import { Badge, Button, Card, DropdownMenu, Image, Text, View } from "reshaped";
 import imagePng from "../assets/image.png";
-import IconMoreUrl from "../svg/more-horizontal.svg";
-import { Icon } from "reshaped";
+import IconMore from "../svg/more-horizontal.svg?react";
 
 export default function CardComponent() {
 	return (
@@ -21,10 +20,7 @@ export default function CardComponent() {
 							<DropdownMenu>
 								<DropdownMenu.Trigger>
 									{(attributes) => (
-										<Button
-											icon={() => <Icon svg={IconMoreUrl} />}
-											attributes={attributes}
-										/>
+										<Button icon={IconMore} attributes={attributes} />
 									)}
 								</DropdownMenu.Trigger>
 								<DropdownMenu.Content>
