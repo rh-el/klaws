@@ -1,6 +1,7 @@
 import { Badge, Button, Card, DropdownMenu, Image, Text, View } from "reshaped";
 import imagePng from "../assets/image.png";
-import { Ellipsis } from "../icons/Icons";
+import IconMoreUrl from "../svg/more-horizontal.svg";
+import { Icon } from "reshaped";
 
 export default function CardComponent() {
 	return (
@@ -14,14 +15,16 @@ export default function CardComponent() {
 							a strange komposer
 						</Text>
 						<Text variant={"body-3"}>
-							Donec aliquam sem dictum metus laoreet, nec aliquet risus commodo. Fusce
-							odio dui, accumsan sit amet erat vitae, fermentum fringilla nisl...
+							Donec aliquam sem dictum metus laoreet, nec aliquet risus commodo...
 						</Text>
 						<View>
 							<DropdownMenu>
 								<DropdownMenu.Trigger>
 									{(attributes) => (
-										<Button icon={Ellipsis} attributes={attributes} />
+										<Button
+											icon={() => <Icon svg={IconMoreUrl} />}
+											attributes={attributes}
+										/>
 									)}
 								</DropdownMenu.Trigger>
 								<DropdownMenu.Content>

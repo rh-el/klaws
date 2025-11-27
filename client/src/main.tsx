@@ -10,6 +10,7 @@ import Signup from "./pages/Signup";
 import Works from "./pages/Works";
 import App from "./App";
 import Account from "./pages/Account";
+import AppLayout from "./layouts/AppLayout";
 
 const router = createBrowserRouter([
 	{
@@ -21,16 +22,17 @@ const router = createBrowserRouter([
 		Component: Signup,
 	},
 	{
-		path: "/works",
-		Component: Works,
+		element: <AppLayout />, // layout route
+		children: [
+			{ path: "/", element: <Works /> },
+			{ path: "/works", element: <Works /> },
+			{ path: "/account", element: <Account /> },
+			// more protected pages can go here
+		],
 	},
 	{
 		path: "/",
 		Component: App,
-	},
-	{
-		path: "/account",
-		Component: Account,
 	},
 	// {
 	// 	path: "/basket",
