@@ -10,3 +10,9 @@ export interface SignupTypes {
 	avatar_url?: string;
 	plain_password: string;
 }
+
+export interface AccountTypes {
+	username: string;
+	bio?: string;
+	avatar_url?: string;
+}
