@@ -23,14 +23,7 @@ export default function CardComponent() {
 									{(attributes) => <Button variant="ghost" icon={IconMore} attributes={attributes} />}
 								</DropdownMenu.Trigger>
 								<DropdownMenu.Content>
-									<DropdownMenu.Item
-										// attributes={{
-										// 	style: { backgroundColor: "var(--rs-color-background-primary-faded)" },
-										// }}
-										className="menuItemCustom"
-									>
-										edit informations
-									</DropdownMenu.Item>
+									<DropdownMenu.Item className="menuItemCustom">edit informations</DropdownMenu.Item>
 									<DropdownMenu.Item className="menuItemCustom">duplikate</DropdownMenu.Item>
 									<Divider />
 									<DropdownMenu.Item className="menuItemCustom">go offline</DropdownMenu.Item>
