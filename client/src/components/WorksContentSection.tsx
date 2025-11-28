@@ -7,7 +7,7 @@ export default function WorksContentSection() {
 			<View direction={"row"} align={"center"} justify={"space-between"}>
 				<Text variant={"title-2"}>worKs</Text>
 				<Button color="primary" size={"xlarge"}>
-					Kreate
+					kreate
 				</Button>
 			</View>
 			<TextField
