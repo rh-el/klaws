@@ -1,0 +1,11 @@
+.menuItemCustom:hover,
+.menuItemCustom[data-rs-focus] {
+	--rs-menu-item-bg-color: var(--rs-color-background-primary-faded);
+}
+
+.customBadge {
+	top: var(--spacing-x3);
+	/* right: var(--spacing-x10); */
+	right: var(--spacing-x3);
+	position: absolute;
+}

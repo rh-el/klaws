@@ -1,6 +1,7 @@
-import { Badge, Button, Card, DropdownMenu, Image, Text, View } from "reshaped";
+import { Badge, Button, Card, Divider, DropdownMenu, Image, Text, View } from "reshaped";
 import imagePng from "../assets/image.png";
 import IconMore from "../svg/more-horizontal.svg?react";
+import "./CardComponent.css";
 
 export default function CardComponent() {
 	return (
@@ -16,25 +17,45 @@ export default function CardComponent() {
 						<Text variant={"body-3"}>
 							Donec aliquam sem dictum metus laoreet, nec aliquet risus commodo...
 						</Text>
-						<View>
+						<View justify={"space-between"} direction={"row"}>
 							<DropdownMenu>
 								<DropdownMenu.Trigger>
-									{(attributes) => (
-										<Button icon={IconMore} attributes={attributes} />
-									)}
+									{(attributes) => <Button variant="ghost" icon={IconMore} attributes={attributes} />}
 								</DropdownMenu.Trigger>
 								<DropdownMenu.Content>
-									<DropdownMenu.Item>Action 1</DropdownMenu.Item>
-									<DropdownMenu.Item>Action 2</DropdownMenu.Item>
+									<DropdownMenu.Item
+										// attributes={{
+										// 	style: { backgroundColor: "var(--rs-color-background-primary-faded)" },
+										// }}
+										className="menuItemCustom"
+									>
+										edit informations
+									</DropdownMenu.Item>
+									<DropdownMenu.Item className="menuItemCustom">duplikate</DropdownMenu.Item>
+									<Divider />
+									<DropdownMenu.Item className="menuItemCustom">go offline</DropdownMenu.Item>
+									<Divider />
+									<DropdownMenu.Item color="critical">delete projekt</DropdownMenu.Item>
 								</DropdownMenu.Content>
 							</DropdownMenu>
+							<Button color="primary" variant="faded" size="small" className="h-full">
+								kompose
+							</Button>
 						</View>
 					</View>
 				</View>
 			</Card>
-			<Badge color="positive" variant="faded" size="small" className="absolute top-3 right-3">
+			{/* <Badge.Container className="customBadge"> */}
+			<Badge
+				color="positive"
+				variant="faded"
+				size="small"
+				// attributes={{ style: { position: "absolute" } }}
+				className="customBadge"
+			>
 				online
 			</Badge>
+			{/* </Badge.Container> */}
 		</View>
 	);
 }
